@@ -22,7 +22,7 @@ export default function Welcome() {
         resizeMode="cover"
         style={{flex: 1}}>
         <View style={styles.wrapper}>
-          <Text style={styles.welcomeTitle}>Jake Clothing</Text>
+          <Text style={styles.welcomeTitle}>Jake's Clothing</Text>
           <Text style={styles.welcomeDesc}>
             Elevate your wardrobe with Jake.
           </Text>
