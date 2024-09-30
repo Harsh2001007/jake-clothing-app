@@ -5,41 +5,48 @@ import {
   TouchableOpacity,
   FlatList,
   ImageBackground,
+  Image,
 } from 'react-native';
 import React from 'react';
 import CURATED from '../../constants/CuratedData';
+import {useNavigation} from '@react-navigation/native';
 
-const Card = ({imgurl, brand, rating, ratingCount, name, currency, price}) => (
-  <View style={styles.cardBody}>
-    <View style={styles.cardUpper}>
-      <TouchableOpacity>
-        <ImageBackground
-          source={{uri: imgurl}}
-          style={{height: 180, width: 170}}>
-          <Text>Fav</Text>
-        </ImageBackground>
+export default function Curated({navigation}) {
+  const Navigation = useNavigation();
+
+  const Card = ({item}) => {
+    return (
+      <TouchableOpacity
+        style={styles.cardBody}
+        onPress={() =>
+          Navigation.navigate('product-detail-screen', {data: item})
+        }>
+        <View style={styles.cardUpper}>
+          <View>
+            <Image
+              source={{uri: item.imageUrl}}
+              style={{height: 180, width: 170}}></Image>
+          </View>
+        </View>
+        <View style={styles.cardLower}>
+          <View style={styles.brandInfo}>
+            <Text style={styles.brandText}>{item.brandName}</Text>
+            <Text style={styles.ratingText}>{item.rating}</Text>
+            <Text style={styles.ratingCountText}>({item.ratingCount})</Text>
+          </View>
+          <View style={styles.name}>
+            <Text numberOfLines={1} ellipsizeMode="tail">
+              {item.name}
+            </Text>
+          </View>
+          <View style={styles.price}>
+            <Text style={styles.currText}>{item.currency}</Text>
+            <Text style={styles.priceText}>{item.price}</Text>
+          </View>
+        </View>
       </TouchableOpacity>
-    </View>
-    <View style={styles.cardLower}>
-      <View style={styles.brandInfo}>
-        <Text style={styles.brandText}>{brand}</Text>
-        <Text style={styles.ratingText}>{rating}</Text>
-        <Text style={styles.ratingCountText}>({ratingCount})</Text>
-      </View>
-      <View style={styles.name}>
-        <Text numberOfLines={1} ellipsizeMode="tail">
-          {name}
-        </Text>
-      </View>
-      <View style={styles.price}>
-        <Text style={styles.currText}>{currency}</Text>
-        <Text style={styles.priceText}>{price}</Text>
-      </View>
-    </View>
-  </View>
-);
-
-export default function Curated() {
+    );
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -55,17 +62,7 @@ export default function Curated() {
           columnWrapperStyle={styles.row}
           data={CURATED}
           keyExtractor={item => item.id}
-          renderItem={({item}) => (
-            <Card
-              imgurl={item.imageUrl}
-              brand={item.brandName}
-              currency={item.currency}
-              rating={item.rating}
-              ratingCount={item.ratingCount}
-              name={item.name}
-              price={item.price}
-            />
-          )}
+          renderItem={Card}
         />
       </View>
     </View>

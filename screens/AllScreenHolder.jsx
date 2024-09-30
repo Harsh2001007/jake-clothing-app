@@ -1,14 +1,21 @@
 import 'react-native-gesture-handler';
-import {StyleSheet, Text, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  Touchable,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import Welcome from './Welcome';
 import HomeScreen from './HomeScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import ExploreScreen from './ExploreScreen';
 import ProfileScreen from './ProfileScreen';
 import NotificationScreen from './NotificationScreen';
+import ProductDetail from './ProductDetail';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -63,6 +70,15 @@ export default function AllScreenHolder() {
           options={{
             headerShown: false,
           }}
+        />
+        <Stack.Screen
+          name="product-detail-screen"
+          component={ProductDetail}
+          options={({navigation}) => (
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <Text>Back</Text>
+            </TouchableOpacity>
+          )}
         />
       </Stack.Navigator>
     </NavigationContainer>
