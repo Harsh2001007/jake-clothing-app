@@ -16,6 +16,8 @@ import ExploreScreen from './ExploreScreen';
 import ProfileScreen from './ProfileScreen';
 import NotificationScreen from './NotificationScreen';
 import ProductDetail from './ProductDetail';
+import SignUpScreen from './SignUpScreen';
+import {UserProvider} from '../contexts/userContext';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -57,31 +59,40 @@ function BottomBar() {
 
 export default function AllScreenHolder() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="welcome-screen"
-          component={Welcome}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="bottom-screen"
-          component={BottomBar}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="product-detail-screen"
-          component={ProductDetail}
-          options={({navigation}) => (
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Text>Back</Text>
-            </TouchableOpacity>
-          )}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <UserProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="welcome-screen"
+            component={Welcome}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="bottom-screen"
+            component={BottomBar}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="product-detail-screen"
+            component={ProductDetail}
+            options={({navigation}) => (
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Text>Back</Text>
+              </TouchableOpacity>
+            )}
+          />
+          <Stack.Screen
+            name="signup-screen"
+            component={SignUpScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </UserProvider>
   );
 }
 

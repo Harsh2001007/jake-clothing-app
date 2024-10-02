@@ -13,7 +13,7 @@ export default function Welcome() {
   const navigation = useNavigation();
 
   const handleGetStarted = () => {
-    navigation.navigate('bottom-screen');
+    navigation.navigate('signup-screen');
   };
   return (
     <View style={styles.container}>
